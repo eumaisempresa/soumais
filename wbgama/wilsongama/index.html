@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wilson Gama | WB Gama Consultoria</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Font Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-4">
+
+  <!-- Container Principal / Simulação de Card Mobile -->
+  <main class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-auto">
+    
+    <!-- Banner de Cabeçalho / Identidade Visual -->
+    <div class="h-32 bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 relative border-b border-slate-800/80">
+      <div class="absolute inset-0 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
+    </div>
+
+    <!-- Seção do Perfil -->
+    <div class="px-6 pb-6 pt-0 relative flex flex-col items-center text-center">
+      
+      <!-- Foto de Perfil / Avatar -->
+      <div class="relative -mt-16 mb-4">
+        <div class="w-28 h-28 rounded-full ring-4 ring-slate-900 bg-slate-800 overflow-hidden shadow-xl flex items-center justify-center text-slate-400">
+          <!-- Substitua o src abaixo pela foto real do Wilson -->
+          <img src="foto-wilson.jpg" alt="Wilson Gama" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Wilson+Gama&background=0F172A&color=fff&size=128';">
+        </div>
+      </div>
+
+      <!-- Informações do Profissional -->
+      <h1 class="text-2xl font-bold tracking-tight text-white">Wilson Gama</h1>
+      <p class="text-xs uppercase tracking-widest font-semibold text-blue-400 mt-1">Sócio-Fundador & Consultor Executivo</p>
+      
+      <!-- Logotipo / Empresa -->
+      <div class="flex items-center justify-center gap-2 mt-2">
+        <span class="text-sm font-medium text-slate-300">WB Gama Consultoria em Gestão</span>
+      </div>
+
+      <p class="text-xs text-slate-400 mt-3 leading-relaxed max-w-xs">
+        Mais de 50 anos de experiência em Varejo Alimentar e Atacarejo. Especialista em Gestão Comercial, Operações e Eficiência Operacional.
+      </p>
+
+      <!-- Botão Principal de Ação: Salvar Contato (vCard) -->
+      <a href="wilson-gama.vcf" download class="w-full mt-6 py-3.5 px-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl shadow-lg shadow-blue-600/20 transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]">
+        <i data-lucide="user-plus" class="w-5 h-5"></i>
+        <span>Salvar na Agenda</span>
+      </a>
+
+      <!-- Grade de Links Rápidos / Ações -->
+      <div class="w-full grid grid-cols-1 gap-3 mt-4">
+        
+        <!-- WhatsApp -->
+        <a href="https://wa.me/5511988818428?text=Ol%C3%A1%20Wilson,%20obtidoseu%20contato%20pelo%20cart%C3%A3o%20digital." target="_blank" rel="noopener noreferrer" 
+           class="flex items-center justify-between p-3.5 bg-slate-800/60 hover:bg-slate-800 border border-slate-700/50 hover:border-emerald-500/50 rounded-xl transition-all duration-200 group">
+          <div class="flex items-center gap-3">
+            <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+              <i data-lucide="message-circle" class="w-5 h-5"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-medium text-slate-200">WhatsApp</span>
+              <span class="block text-xs text-slate-400">(11) 98881-8428</span>
+            </div>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-slate-300 transition-colors"></i>
+        </a>
+
+        <!-- E-mail -->
+        <a href="mailto:wbgama@hotmail.com" 
+           class="flex items-center justify-between p-3.5 bg-slate-800/60 hover:bg-slate-800 border border-slate-700/50 hover:border-blue-500/50 rounded-xl transition-all duration-200 group">
+          <div class="flex items-center gap-3">
+            <div class="p-2 bg-blue-500/10 text-blue-400 rounded-lg group-hover:bg-blue-500 group-hover:text-white transition-colors">
+              <i data-lucide="mail" class="w-5 h-5"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-medium text-slate-200">E-mail</span>
+              <span class="block text-xs text-slate-400">wbgama@hotmail.com</span>
+            </div>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-slate-300 transition-colors"></i>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://linkedin.com/in/wilsongama" target="_blank" rel="noopener noreferrer" 
+           class="flex items-center justify-between p-3.5 bg-slate-800/60 hover:bg-slate-800 border border-slate-700/50 hover:border-sky-500/50 rounded-xl transition-all duration-200 group">
+          <div class="flex items-center gap-3">
+            <div class="p-2 bg-sky-500/10 text-sky-400 rounded-lg group-hover:bg-sky-500 group-hover:text-white transition-colors">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-medium text-slate-200">LinkedIn</span>
+              <span class="block text-xs text-slate-400">/in/wilsongama</span>
+            </div>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-slate-300 transition-colors"></i>
+        </a>
+
+        <!-- Agendar Reunião / Formulário do Site -->
+        <a href="https://wbgama.com.br/#diagnostico" target="_blank" rel="noopener noreferrer" 
+           class="flex items-center justify-between p-3.5 bg-slate-800/60 hover:bg-slate-800 border border-slate-700/50 hover:border-amber-500/50 rounded-xl transition-all duration-200 group">
+          <div class="flex items-center gap-3">
+            <div class="p-2 bg-amber-500/10 text-amber-400 rounded-lg group-hover:bg-amber-500 group-hover:text-white transition-colors">
+              <i data-lucide="calendar" class="w-5 h-5"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-medium text-slate-200">Agendar Diagnóstico</span>
+              <span class="block text-xs text-slate-400">Solicite uma consultoria</span>
+            </div>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-slate-300 transition-colors"></i>
+        </a>
+
+      </div>
+
+      <!-- Footer do Cartão -->
+      <footer class="mt-8 pt-4 border-t border-slate-800/80 w-full text-center">
+        <p class="text-[11px] text-slate-500">© WB Gama Consultoria. Todos os direitos reservados.</p>
+      </footer>
+
+    </div>
+  </main>
+
+  <script>
+    // Inicializa os ícones do Lucide
+    lucide.createIcons();
+  </script>
+</body>
+</html>
