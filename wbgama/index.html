@@ -37,7 +37,7 @@
     <nav class="bg-brand-navy text-white sticky top-0 z-40 shadow-xl border-b border-brand-gold/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
-            <!-- Logotipo SVG em Alta Resolução -->
+            <!-- Logotipo SVG -->
             <a href="#" class="flex items-center gap-3 group">
                 <svg class="w-10 h-10 transition-transform group-hover:scale-105" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15 65L35 30L55 65H42L35 50L28 65H15Z" fill="#C59B27"/>
@@ -100,7 +100,6 @@
         </div>
 
         <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-5 mb-14">
-            
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
                 <div class="w-2 h-full bg-red-600 absolute left-0 top-0"></div>
                 <div>
@@ -160,7 +159,6 @@
                     Fonte: Imprensa Especializada
                 </div>
             </div>
-
         </div>
 
         <!-- Banner de Impacto -->
@@ -181,7 +179,7 @@
         </div>
     </section>
 
-    <!-- Soluções em Gestão para Elevar seu EBITDA (9 Caixas) -->
+    <!-- Soluções em Gestão -->
     <section id="solucoes" class="py-20 bg-slate-100 border-y border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -266,7 +264,7 @@
         </div>
     </section>
 
-    <!-- Bagagem Executiva Solidificada em Grandes Grupos do Brasil (Posicionada no Final da Página) -->
+    <!-- Clientes / Grupos -->
     <section class="bg-white py-16 border-t border-slate-200">
         <div class="max-w-7xl mx-auto px-4">
             <p class="text-center text-xs uppercase font-extrabold text-slate-500 tracking-[0.25em] mb-10">
@@ -296,10 +294,9 @@
         </div>
     </section>
 
-    <!-- Rodapé Oficial -->
+    <!-- Rodapé -->
     <footer class="bg-brand-navy text-slate-400 py-12 border-t border-brand-gold/20">
         <div class="max-w-7xl mx-auto px-4 text-center space-y-6">
-            
             <div class="flex justify-center items-center gap-3">
                 <svg class="w-8 h-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15 65L35 30L55 65H42L35 50L28 65H15Z" fill="#C59B27"/>
@@ -331,7 +328,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- Barra de Progresso do Modal -->
+            <!-- Barra de Progresso -->
             <div class="mb-6">
                 <div class="flex justify-between text-xs font-bold text-slate-500 uppercase mb-2">
                     <span id="stepTitle">Etapa 1 de 5: Dados do Cliente</span>
@@ -344,7 +341,7 @@
 
             <form id="multiStepForm" onsubmit="event.preventDefault();">
                 
-                <!-- PASSO 1: DADOS BÁSICOS -->
+                <!-- PASSO 1 -->
                 <div id="step1" class="step-content active space-y-4">
                     <h3 class="text-xl font-extrabold text-brand-navy mb-4">Informações de Contato</h3>
                     
@@ -386,7 +383,7 @@
                     </button>
                 </div>
 
-                <!-- PASSO 2: ESTOQUE & PERDAS -->
+                <!-- PASSO 2 -->
                 <div id="step2" class="step-content space-y-4">
                     <h3 class="text-xl font-extrabold text-brand-navy">1. Estoque & Perdas</h3>
                     <p class="text-xs text-slate-500">Selecione todas as dificuldades que ocorrem na sua operação:</p>
@@ -420,7 +417,7 @@
                     </div>
                 </div>
 
-                <!-- PASSO 3: COMERCIAL & MARGEM -->
+                <!-- PASSO 3 -->
                 <div id="step3" class="step-content space-y-4">
                     <h3 class="text-xl font-extrabold text-brand-navy">2. Comercial & Margem</h3>
                     <p class="text-xs text-slate-500">Selecione os pontos críticos do seu setor comercial:</p>
@@ -454,7 +451,7 @@
                     </div>
                 </div>
 
-                <!-- PASSO 4: OPERAÇÕES & GESTÃO -->
+                <!-- PASSO 4 -->
                 <div id="step4" class="step-content space-y-4">
                     <h3 class="text-xl font-extrabold text-brand-navy">3. Operações & Gestão</h3>
                     <p class="text-xs text-slate-500">Selecione os gargalos na gestão de loja e equipes:</p>
@@ -488,7 +485,7 @@
                     </div>
                 </div>
 
-                <!-- PASSO 5: OBSERVAÇÃO ADICIONAL & ENVIAR -->
+                <!-- PASSO 5 -->
                 <div id="step5" class="step-content space-y-4">
                     <h3 class="text-xl font-extrabold text-brand-navy">Observações Finais</h3>
                     
@@ -513,11 +510,10 @@
         </div>
     </div>
 
-    <!-- SCRIPT DE INTEGRAÇÃO COM SHEETS, LINK DIRETO E WHATSAPP -->
+    <!-- SCRIPT DE INTEGRAÇÃO CORRIGIDO -->
     <script>
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyaiIyHqxnkiVTnItszjbw6sqJtCP9mK-BiKucQ4fm9lsAGcT0o_DwYLcW_CYze-Xzqag/exec';
 
-        // Abertura Automática por Link Direto (Ex: www.eumaisempresa.com.br/#diagnostico)
         window.addEventListener('DOMContentLoaded', () => {
             if (window.location.hash === '#diagnostico') {
                 openModal();
@@ -563,14 +559,17 @@
             document.getElementById('progressBar').style.width = percentMap[stepNumber];
         }
 
-        async function salvarNaPlanilha(dados) {
+        async function salvarNaPlanilha(leadObj, historicoTexto) {
             try {
-                // Envio em segundo plano via fetch no-cors para evitar interrupções de erro
+                const payload = {
+                    action: "salvarLead",
+                    lead: leadObj,
+                    historicoNota: historicoTexto
+                };
+
                 await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dados)
+                    body: JSON.stringify(payload)
                 });
             } catch (error) {
                 console.warn('Erro na integração com a planilha:', error);
@@ -603,24 +602,25 @@
 
             let obsTexto = obs.trim() !== "" ? obs : "Nenhuma observação adicional fornecida.";
 
-            // Payload dos dados para a Planilha no Google Sheets
-            const payloadSheet = {
-                dataHora: new Date().toLocaleString('pt-BR'),
-                nome,
-                cargo,
-                empresa,
-                lojas,
-                whatsapp,
-                cidade,
-                estado,
-                dores: doresLista.join(" | "),
-                observacoes: obsTexto
+            const idLead = Date.now();
+            const leadObj = {
+                id: idLead,
+                empresa: empresa,
+                nome: nome,
+                whatsapp: whatsapp,
+                cargo: cargo,
+                qtdLojas: lojas,
+                cidade: cidade,
+                estado: estado,
+                etapa: 1,
+                decisor: "",
+                influenciadores: ""
             };
 
-            // Dispara a gravação na planilha (garante salvamento mesmo se houver instabilidade)
-            salvarNaPlanilha(payloadSheet);
+            const notaHistorico = `📥 LEAD CAPTADO VIA SITE\n\nDores Selecionadas:\n${doresTexto}\n\nObservações:\n${obsTexto}`;
 
-            // Montagem da mensagem estruturada para o WhatsApp
+            salvarNaPlanilha(leadObj, notaHistorico);
+
             const mensagem = `SOLICITAÇÃO DE DIAGNÓSTICO EM GESTÃO\n\n` +
                 `*DADOS DO CLIENTE*\n` +
                 `• Nome: ${nome}\n` +
