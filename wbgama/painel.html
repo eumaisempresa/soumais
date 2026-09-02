@@ -4,22 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Painel de Gestão de Leads | WB Gama Consultoria</title>
-  <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Font Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; }
-    /* Estilização da barra de rolagem dos cards */
     .kanban-col::-webkit-scrollbar { width: 4px; }
     .kanban-col::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
 
-  <!-- Cabeçalho Principal -->
   <header class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 sticky top-0 z-20">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-lg">
@@ -31,7 +26,6 @@
       </div>
     </div>
 
-    <!-- Barra de Pesquisa & Ação de Novo Lead -->
     <div class="flex items-center gap-3 w-full md:w-auto">
       <div class="relative flex-1 md:w-72">
         <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
@@ -45,88 +39,61 @@
     </div>
   </header>
 
-  <!-- Corpo do Funil (Kanban) com 6 Colunas -->
   <main class="flex-1 p-6 overflow-x-auto">
     <div class="grid grid-cols-1 md:grid-cols-6 gap-4 min-w-[1450px] h-[calc(100vh-120px)]">
-
-      <!-- Etapa 1: Entrada -->
       <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col h-full overflow-hidden">
         <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
-          <div class="flex items-center gap-2">
-            <div class="w-2.5 h-2.5 rounded-full bg-blue-500"></div>
-            <h2 class="font-semibold text-sm text-slate-200">1. Entrada</h2>
-          </div>
+          <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-blue-500"></div><h2 class="font-semibold text-sm text-slate-200">1. Entrada</h2></div>
           <span id="count-1" class="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">0</span>
         </div>
         <div id="coluna-1" class="kanban-col p-3 space-y-3 overflow-y-auto flex-1"></div>
       </div>
 
-      <!-- Etapa 2: Qualificação -->
       <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col h-full overflow-hidden">
         <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
-          <div class="flex items-center gap-2">
-            <div class="w-2.5 h-2.5 rounded-full bg-indigo-500"></div>
-            <h2 class="font-semibold text-sm text-slate-200">2. Qualificação</h2>
-          </div>
+          <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-indigo-500"></div><h2 class="font-semibold text-sm text-slate-200">2. Qualificação</h2></div>
           <span id="count-2" class="text-xs font-bold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">0</span>
         </div>
         <div id="coluna-2" class="kanban-col p-3 space-y-3 overflow-y-auto flex-1"></div>
       </div>
 
-      <!-- Etapa 3: Diagnóstico -->
       <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col h-full overflow-hidden">
         <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
-          <div class="flex items-center gap-2">
-            <div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>
-            <h2 class="font-semibold text-sm text-slate-200">3. Diagnóstico</h2>
-          </div>
+          <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div><h2 class="font-semibold text-sm text-slate-200">3. Diagnóstico</h2></div>
           <span id="count-3" class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">0</span>
         </div>
         <div id="coluna-3" class="kanban-col p-3 space-y-3 overflow-y-auto flex-1"></div>
       </div>
 
-      <!-- Etapa 4: Proposta -->
       <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col h-full overflow-hidden">
         <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
-          <div class="flex items-center gap-2">
-            <div class="w-2.5 h-2.5 rounded-full bg-purple-500"></div>
-            <h2 class="font-semibold text-sm text-slate-200">4. Proposta</h2>
-          </div>
+          <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-purple-500"></div><h2 class="font-semibold text-sm text-slate-200">4. Proposta</h2></div>
           <span id="count-4" class="text-xs font-bold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">0</span>
         </div>
         <div id="coluna-4" class="kanban-col p-3 space-y-3 overflow-y-auto flex-1"></div>
       </div>
 
-      <!-- Etapa 5: Controle de Clientes -->
       <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col h-full overflow-hidden">
         <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
-          <div class="flex items-center gap-2">
-            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
-            <h2 class="font-semibold text-sm text-slate-200">5. Clientes Ativos</h2>
-          </div>
+          <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div><h2 class="font-semibold text-sm text-slate-200">5. Clientes Ativos</h2></div>
           <span id="count-5" class="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">0</span>
         </div>
         <div id="coluna-5" class="kanban-col p-3 space-y-3 overflow-y-auto flex-1"></div>
       </div>
 
-      <!-- Etapa 6: Arquivados / Sem Interesse -->
       <div class="bg-slate-900/30 border border-slate-800/50 rounded-2xl flex flex-col h-full overflow-hidden">
         <div class="p-4 border-b border-slate-800/80 flex items-center justify-between bg-slate-950/40">
-          <div class="flex items-center gap-2">
-            <div class="w-2.5 h-2.5 rounded-full bg-rose-500/60"></div>
-            <h2 class="font-semibold text-sm text-slate-400">6. Arquivados</h2>
-          </div>
+          <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-rose-500/60"></div><h2 class="font-semibold text-sm text-slate-400">6. Arquivados</h2></div>
           <span id="count-6" class="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">0</span>
         </div>
         <div id="coluna-6" class="kanban-col p-3 space-y-3 overflow-y-auto flex-1 opacity-75 hover:opacity-100 transition-opacity"></div>
       </div>
-
     </div>
   </main>
 
-  <!-- Modal para Visualizar / Editar Lead -->
+  <!-- Modal Lead & Histórico -->
   <div id="leadModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl p-6">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl p-6">
       
       <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
         <h3 id="modalTitulo" class="text-lg font-bold text-white">Detalhes do Lead</h3>
@@ -138,7 +105,6 @@
       <form id="leadForm" onsubmit="salvarLead(event)" class="space-y-4">
         <input type="hidden" id="leadId">
 
-        <!-- Linha 1: Empresa e Nome -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Empresa</label>
@@ -150,7 +116,6 @@
           </div>
         </div>
 
-        <!-- Linha 2: WhatsApp e Cargo -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">WhatsApp</label>
@@ -166,7 +131,6 @@
           </div>
         </div>
 
-        <!-- Linha 3: Localização e Etapa -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Cidade</label>
@@ -189,41 +153,39 @@
           </div>
         </div>
 
-        <!-- Linha 4: Mapeamento da Conta -->
         <div class="border-t border-slate-800 pt-4 mt-2">
           <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-3">Mapeamento de Apoiadores & Decisão</h4>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-medium text-slate-400 mb-1">Pessoa Decisora (Ajustada)</label>
-              <input type="text" id="decisor" placeholder="Ex: Sr. Carlos (Proprietário)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none">
+              <label class="block text-xs font-medium text-slate-400 mb-1">Pessoa Decisora</label>
+              <input type="text" id="decisor" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none">
             </div>
             <div>
               <label class="block text-xs font-medium text-slate-400 mb-1">Outros Influenciadores</label>
-              <input type="text" id="influenciadores" placeholder="Ex: Roberto (Ger. Operações)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none">
+              <input type="text" id="influenciadores" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none">
             </div>
           </div>
         </div>
 
-        <!-- Linha 5: Comentários e Histórico -->
-        <div>
-          <label class="block text-xs font-medium text-slate-400 mb-1">Histórico de Contato & Motivo de Arquivamento</label>
-          <textarea id="comentarios" rows="3" placeholder="Registre aqui observações, objeções ou motivo pelo qual o lead foi arquivado..." 
-                    class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none"></textarea>
+        <!-- Seção do Histórico (Item 3) -->
+        <div class="border-t border-slate-800 pt-4">
+          <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Registrar Nova Observação/Atividade</h4>
+          <textarea id="novaNota" rows="2" placeholder="Digite uma nova atualização sobre este cliente..." 
+                    class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none mb-3"></textarea>
+
+          <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Histórico de Atividades</h4>
+          <div id="historicoContainer" class="bg-slate-950 border border-slate-800/80 rounded-xl p-3 max-h-36 overflow-y-auto space-y-2 text-xs text-slate-300">
+            <span class="text-slate-500 italic">Carregando histórico...</span>
+          </div>
         </div>
 
-        <!-- Botões do Rodapé -->
         <div class="flex items-center justify-between border-t border-slate-800 pt-4 mt-4">
+          <button type="button" onclick="excluirLeadPermanente()" id="btnExcluir" class="text-red-400 hover:text-red-300 text-xs font-medium flex items-center gap-1">
+            <i data-lucide="trash-2" class="w-4 h-4"></i> Excluir
+          </button>
           <div class="flex items-center gap-2">
-            <button type="button" onclick="excluirLeadPermanente()" id="btnExcluir" class="text-red-400 hover:text-red-300 text-xs font-medium flex items-center gap-1">
-              <i data-lucide="trash-2" class="w-4 h-4"></i> Excluir
-            </button>
-            <button type="button" onclick="arquivarLeadRapido()" id="btnArquivar" class="text-amber-400 hover:text-amber-300 text-xs font-medium flex items-center gap-1 border border-amber-500/20 bg-amber-500/10 px-2.5 py-1 rounded-lg">
-              <i data-lucide="archive" class="w-4 h-4"></i> Mover p/ Arquivados
-            </button>
-          </div>
-          <div class="flex items-center gap-2">
-            <button type="button" onclick="fecharModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-medium transition-colors">Cancelar</button>
-            <button type="submit" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-sm transition-colors">Salvar Alterações</button>
+            <button type="button" onclick="fecharModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm font-medium">Cancelar</button>
+            <button type="submit" id="btnSalvar" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded-xl text-sm">Salvar Alterações</button>
           </div>
         </div>
       </form>
@@ -231,17 +193,28 @@
   </div>
 
   <script>
-    // Dados Demonstrativos Iniciais (com a 6ª etapa inclusa)
-    let leads = [
-      { id: 1, empresa: "Supermercados Pague Menos", nome: "Carlos Eduardo", cargo: "Diretor Comercial", whatsapp: "11988887766", qtdLojas: 8, cidade: "Campinas", estado: "SP", etapa: 1, decisor: "", influenciadores: "", comentarios: "Entrou pelo formulário da Landing Page." },
-      { id: 2, empresa: "Rede Atacado Sul", nome: "Mariana Souza", cargo: "Gerente de Compras", whatsapp: "19977665544", qtdLojas: 14, cidade: "Sorocaba", estado: "SP", etapa: 2, decisor: "Antônio Souza (Dono)", influenciadores: "Mariana (Compras)", comentarios: "Primeiro contato realizado. Agendado diagnóstico para próxima terça." },
-      { id: 3, empresa: "Hipervarejo Silva", nome: "Fernando Silva", cargo: "CEO", whatsapp: "11911223344", qtdLojas: 5, cidade: "São Paulo", estado: "SP", etapa: 3, decisor: "Fernando Silva", influenciadores: "Juliana (CFO)", comentarios: "Diagnóstico de perdas e ruptura em andamento." },
-      { id: 4, empresa: "Grupo Boa Vista", nome: "Roberto Alves", cargo: "Sócio", whatsapp: "21998877112", qtdLojas: 12, cidade: "Niterói", estado: "RJ", etapa: 4, decisor: "Roberto Alves", influenciadores: "", comentarios: "Proposta enviada referente à consultoria de margem bruta." },
-      { id: 5, empresa: "Atacadão das Frutas", nome: "Sérgio Mendes", cargo: "Proprietário", whatsapp: "31988112233", qtdLojas: 3, cidade: "Belo Horizonte", estado: "MG", etapa: 5, decisor: "Sérgio Mendes", influenciadores: "", comentarios: "Cliente ativo. Projeto de eficiência operacional iniciado." },
-      { id: 6, empresa: "Comercial de Alimentos Santos", nome: "José Santos", cargo: "Gerente", whatsapp: "11966554433", qtdLojas: 2, cidade: "Santos", estado: "SP", etapa: 6, decisor: "", influenciadores: "", comentarios: "Sem orçamento disponível neste trimestre." }
-    ];
+    // URL DO SEU APPS SCRIPT PUBLICADO
+    const API_URL = "COLE_AQUI_A_URL_DO_SEU_APPS_SCRIPT"; 
 
-    // Renderiza os Cards no Kanban
+    let leads = [];
+
+    async function carregarLeadsDaPlanilha() {
+      if(API_URL.includes("COLE_AQUI")) return;
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          body: JSON.stringify({ action: "listarLeads" })
+        });
+        const res = await response.json();
+        if(res.status === "success") {
+          leads = res.leads;
+          renderizarKanban();
+        }
+      } catch(e) {
+        console.error("Erro ao carregar dados:", e);
+      }
+    }
+
     function renderizarKanban(dados = leads) {
       for (let i = 1; i <= 6; i++) {
         document.getElementById(`coluna-${i}`).innerHTML = '';
@@ -251,11 +224,12 @@
       const contadores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
 
       dados.forEach(lead => {
-        contadores[lead.etapa]++;
-        const coluna = document.getElementById(`coluna-${lead.etapa}`);
+        const etapaInt = parseInt(lead.etapa) || 1;
+        contadores[etapaInt]++;
+        const coluna = document.getElementById(`coluna-${etapaInt}`);
 
         const card = document.createElement('div');
-        const isArquivado = lead.etapa === 6;
+        const isArquivado = etapaInt === 6;
         
         card.className = `${isArquivado ? 'bg-slate-900/60 border-slate-800 text-slate-400' : 'bg-slate-800/80 border-slate-700/60 text-white'} hover:bg-slate-800 border rounded-xl p-3.5 shadow-md cursor-pointer transition-all hover:border-slate-500 group`;
         card.onclick = () => abrirModalEdicao(lead.id);
@@ -266,55 +240,24 @@
             ${lead.qtdLojas ? `<span class="text-[10px] font-semibold px-2 py-0.5 bg-slate-950 text-slate-400 rounded-md shrink-0 border border-slate-800">${lead.qtdLojas} lojas</span>` : ''}
           </div>
           <p class="text-xs text-slate-400 font-medium mb-2">${lead.nome} <span class="text-slate-500">(${lead.cargo || 'N/I'})</span></p>
-
-          ${lead.decisor ? `
-            <div class="text-[11px] text-amber-300/80 bg-amber-500/10 border border-amber-500/20 rounded-md p-1.5 mb-2 flex items-center gap-1">
-              <i data-lucide="user-check" class="w-3 h-3 shrink-0"></i>
-              <span class="truncate">Decisor: ${lead.decisor}</span>
-            </div>
-          ` : ''}
-
+          ${lead.decisor ? `<div class="text-[11px] text-amber-300/80 bg-amber-500/10 border border-amber-500/20 rounded-md p-1.5 mb-2 flex items-center gap-1"><i data-lucide="user-check" class="w-3 h-3 shrink-0"></i><span class="truncate">Decisor: ${lead.decisor}</span></div>` : ''}
           <div class="flex items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-slate-700/50">
-            <span class="flex items-center gap-1">
-              <i data-lucide="map-pin" class="w-3 h-3 text-slate-500"></i> ${lead.cidade || 'N/A'}-${lead.estado || ''}
-            </span>
-            <a href="https://wa.me/55${lead.whatsapp.replace(/\D/g,'')}" target="_blank" onclick="event.stopPropagation()" class="text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-medium">
-              <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
-            </a>
+            <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3 text-slate-500"></i> ${lead.cidade || 'N/A'}-${lead.estado || ''}</span>
+            <a href="https://wa.me/55${String(lead.whatsapp).replace(/\D/g,'')}" target="_blank" onclick="event.stopPropagation()" class="text-emerald-400 hover:text-emerald-300 font-medium"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i></a>
           </div>
         `;
 
-        coluna.appendChild(card);
+        if(coluna) coluna.appendChild(card);
       });
 
       for (let i = 1; i <= 6; i++) {
         document.getElementById(`count-${i}`).innerText = contadores[i];
       }
-
       lucide.createIcons();
     }
 
-    function filtrarLeads() {
-      const termo = document.getElementById('searchInput').value.toLowerCase();
-      const filtrados = leads.filter(l => 
-        l.empresa.toLowerCase().includes(termo) ||
-        l.nome.toLowerCase().includes(termo) ||
-        l.cidade.toLowerCase().includes(termo)
-      );
-      renderizarKanban(filtrados);
-    }
-
-    function abrirModalNovoLead() {
-      document.getElementById('leadForm').reset();
-      document.getElementById('leadId').value = '';
-      document.getElementById('modalTitulo').innerText = "Cadastrar Novo Lead";
-      document.getElementById('btnExcluir').classList.add('hidden');
-      document.getElementById('btnArquivar').classList.add('hidden');
-      document.getElementById('leadModal').classList.remove('hidden');
-    }
-
-    function abrirModalEdicao(id) {
-      const lead = leads.find(l => l.id === id);
+    async function abrirModalEdicao(id) {
+      const lead = leads.find(l => l.id == id);
       if (!lead) return;
 
       document.getElementById('leadId').value = lead.id;
@@ -328,23 +271,49 @@
       document.getElementById('etapa').value = lead.etapa;
       document.getElementById('decisor').value = lead.decisor || '';
       document.getElementById('influenciadores').value = lead.influenciadores || '';
-      document.getElementById('comentarios').value = lead.comentarios || '';
+      document.getElementById('novaNota').value = '';
 
       document.getElementById('modalTitulo').innerText = `Gerenciar Lead — ${lead.empresa}`;
       document.getElementById('btnExcluir').classList.remove('hidden');
-      document.getElementById('btnArquivar').classList.remove('hidden');
       document.getElementById('leadModal').classList.remove('hidden');
+
+      // Busca Histórico
+      carregarHistoricoDoLead(lead.id);
     }
 
-    function fecharModal() {
-      document.getElementById('leadModal').classList.add('hidden');
+    async function carregarHistoricoDoLead(idLead) {
+      const box = document.getElementById('historicoContainer');
+      box.innerHTML = '<span class="text-slate-500 italic">Carregando histórico...</span>';
+      
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          body: JSON.stringify({ action: "buscarHistorico", idLead: idLead })
+        });
+        const res = await response.json();
+        
+        if (res.status === "success" && res.historico.length > 0) {
+          box.innerHTML = res.historico.map(h => `
+            <div class="border-b border-slate-800/60 pb-1.5 last:border-0">
+              <span class="text-[10px] text-slate-500 font-semibold">${h.dataHora}</span>
+              <p class="text-slate-300 mt-0.5">${h.descricao}</p>
+            </div>
+          `).join('');
+        } else {
+          box.innerHTML = '<span class="text-slate-500 italic">Nenhum histórico registrado ainda.</span>';
+        }
+      } catch(e) {
+        box.innerHTML = '<span class="text-slate-500 italic">Sem histórico disponível offline.</span>';
+      }
     }
 
-    function salvarLead(event) {
+    async function salvarLead(event) {
       event.preventDefault();
-      const id = document.getElementById('leadId').value;
+      const btn = document.getElementById('btnSalvar');
+      btn.innerText = "Salvando...";
 
-      const novoLead = {
+      const id = document.getElementById('leadId').value;
+      const leadData = {
         id: id ? parseInt(id) : Date.now(),
         empresa: document.getElementById('empresa').value,
         nome: document.getElementById('nome').value,
@@ -355,41 +324,35 @@
         estado: document.getElementById('estado').value.toUpperCase(),
         etapa: parseInt(document.getElementById('etapa').value),
         decisor: document.getElementById('decisor').value,
-        influenciadores: document.getElementById('influenciadores').value,
-        comentarios: document.getElementById('comentarios').value
+        influenciadores: document.getElementById('influenciadores').value
       };
 
-      if (id) {
-        const index = leads.findIndex(l => l.id === parseInt(id));
-        leads[index] = novoLead;
-      } else {
-        leads.push(novoLead);
-      }
+      const nota = document.getElementById('novaNota').value;
 
+      await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "salvarLead", lead: leadData, historicoNota: nota })
+      });
+
+      btn.innerText = "Salvar Alterações";
       fecharModal();
-      renderizarKanban();
+      carregarLeadsDaPlanilha();
     }
 
-    function arquivarLeadRapido() {
-      const id = parseInt(document.getElementById('leadId').value);
-      const lead = leads.find(l => l.id === id);
-      if (lead) {
-        lead.etapa = 6;
-        fecharModal();
-        renderizarKanban();
-      }
+    function abrirModalNovoLead() {
+      document.getElementById('leadForm').reset();
+      document.getElementById('leadId').value = '';
+      document.getElementById('historicoContainer').innerHTML = '<span class="text-slate-500 italic">O histórico estará disponível após salvar.</span>';
+      document.getElementById('modalTitulo').innerText = "Cadastrar Novo Lead";
+      document.getElementById('btnExcluir').classList.add('hidden');
+      document.getElementById('leadModal').classList.remove('hidden');
     }
 
-    function excluirLeadPermanente() {
-      const id = parseInt(document.getElementById('leadId').value);
-      if (confirm("Tem certeza que deseja excluir permanentemente este registro?")) {
-        leads = leads.filter(l => l.id !== id);
-        fecharModal();
-        renderizarKanban();
-      }
+    function fecharModal() {
+      document.getElementById('leadModal').classList.add('hidden');
     }
 
-    renderizarKanban();
+    carregarLeadsDaPlanilha();
   </script>
 </body>
 </html>
