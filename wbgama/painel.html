@@ -45,16 +45,16 @@
     </div>
   </header>
 
-  <!-- Corpo do Funil (Kanban) -->
+  <!-- Corpo do Funil (Kanban) com 6 Colunas -->
   <main class="flex-1 p-6 overflow-x-auto">
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 min-w-[1200px] h-[calc(100vh-120px)]">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-4 min-w-[1450px] h-[calc(100vh-120px)]">
 
       <!-- Etapa 1: Entrada -->
       <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col h-full overflow-hidden">
         <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
           <div class="flex items-center gap-2">
             <div class="w-2.5 h-2.5 rounded-full bg-blue-500"></div>
-            <h2 class="font-semibold text-sm text-slate-200">1. Entrada / Formulário</h2>
+            <h2 class="font-semibold text-sm text-slate-200">1. Entrada</h2>
           </div>
           <span id="count-1" class="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">0</span>
         </div>
@@ -107,6 +107,18 @@
           <span id="count-5" class="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">0</span>
         </div>
         <div id="coluna-5" class="kanban-col p-3 space-y-3 overflow-y-auto flex-1"></div>
+      </div>
+
+      <!-- Etapa 6: Arquivados / Sem Interesse -->
+      <div class="bg-slate-900/30 border border-slate-800/50 rounded-2xl flex flex-col h-full overflow-hidden">
+        <div class="p-4 border-b border-slate-800/80 flex items-center justify-between bg-slate-950/40">
+          <div class="flex items-center gap-2">
+            <div class="w-2.5 h-2.5 rounded-full bg-rose-500/60"></div>
+            <h2 class="font-semibold text-sm text-slate-400">6. Arquivados</h2>
+          </div>
+          <span id="count-6" class="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">0</span>
+        </div>
+        <div id="coluna-6" class="kanban-col p-3 space-y-3 overflow-y-auto flex-1 opacity-75 hover:opacity-100 transition-opacity"></div>
       </div>
 
     </div>
@@ -172,11 +184,12 @@
               <option value="3">3. Diagnóstico</option>
               <option value="4">4. Proposta</option>
               <option value="5">5. Cliente Ativo</option>
+              <option value="6">6. Arquivado / Sem Interesse</option>
             </select>
           </div>
         </div>
 
-        <!-- Linha 4: Mapeamento da Conta (Decisor & Influenciadores) -->
+        <!-- Linha 4: Mapeamento da Conta -->
         <div class="border-t border-slate-800 pt-4 mt-2">
           <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-3">Mapeamento de Apoiadores & Decisão</h4>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -191,18 +204,23 @@
           </div>
         </div>
 
-        <!-- Linha 5: Comentários e Histórico de Negociação -->
+        <!-- Linha 5: Comentários e Histórico -->
         <div>
-          <label class="block text-xs font-medium text-slate-400 mb-1">Histórico de Contato & Observações</label>
-          <textarea id="comentarios" rows="3" placeholder="Registre aqui o retorno do contato, dores confirmadas, objeções ou detalhes do diagnóstico..." 
+          <label class="block text-xs font-medium text-slate-400 mb-1">Histórico de Contato & Motivo de Arquivamento</label>
+          <textarea id="comentarios" rows="3" placeholder="Registre aqui observações, objeções ou motivo pelo qual o lead foi arquivado..." 
                     class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none"></textarea>
         </div>
 
         <!-- Botões do Rodapé -->
         <div class="flex items-center justify-between border-t border-slate-800 pt-4 mt-4">
-          <button type="button" onclick="excluirLead()" id="btnExcluir" class="text-red-400 hover:text-red-300 text-xs font-medium flex items-center gap-1">
-            <i data-lucide="trash-2" class="w-4 h-4"></i> Excluir Lead
-          </button>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="excluirLeadPermanente()" id="btnExcluir" class="text-red-400 hover:text-red-300 text-xs font-medium flex items-center gap-1">
+              <i data-lucide="trash-2" class="w-4 h-4"></i> Excluir
+            </button>
+            <button type="button" onclick="arquivarLeadRapido()" id="btnArquivar" class="text-amber-400 hover:text-amber-300 text-xs font-medium flex items-center gap-1 border border-amber-500/20 bg-amber-500/10 px-2.5 py-1 rounded-lg">
+              <i data-lucide="archive" class="w-4 h-4"></i> Mover p/ Arquivados
+            </button>
+          </div>
           <div class="flex items-center gap-2">
             <button type="button" onclick="fecharModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-medium transition-colors">Cancelar</button>
             <button type="submit" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-sm transition-colors">Salvar Alterações</button>
@@ -213,42 +231,44 @@
   </div>
 
   <script>
-    // Dados Demonstrativos Iniciais (Simulando entradas da planilha)
+    // Dados Demonstrativos Iniciais (com a 6ª etapa inclusa)
     let leads = [
       { id: 1, empresa: "Supermercados Pague Menos", nome: "Carlos Eduardo", cargo: "Diretor Comercial", whatsapp: "11988887766", qtdLojas: 8, cidade: "Campinas", estado: "SP", etapa: 1, decisor: "", influenciadores: "", comentarios: "Entrou pelo formulário da Landing Page." },
       { id: 2, empresa: "Rede Atacado Sul", nome: "Mariana Souza", cargo: "Gerente de Compras", whatsapp: "19977665544", qtdLojas: 14, cidade: "Sorocaba", estado: "SP", etapa: 2, decisor: "Antônio Souza (Dono)", influenciadores: "Mariana (Compras)", comentarios: "Primeiro contato realizado. Agendado diagnóstico para próxima terça." },
       { id: 3, empresa: "Hipervarejo Silva", nome: "Fernando Silva", cargo: "CEO", whatsapp: "11911223344", qtdLojas: 5, cidade: "São Paulo", estado: "SP", etapa: 3, decisor: "Fernando Silva", influenciadores: "Juliana (CFO)", comentarios: "Diagnóstico de perdas e ruptura em andamento." },
       { id: 4, empresa: "Grupo Boa Vista", nome: "Roberto Alves", cargo: "Sócio", whatsapp: "21998877112", qtdLojas: 12, cidade: "Niterói", estado: "RJ", etapa: 4, decisor: "Roberto Alves", influenciadores: "", comentarios: "Proposta enviada referente à consultoria de margem bruta." },
-      { id: 5, empresa: "Atacadão das Frutas", nome: "Sérgio Mendes", cargo: "Proprietário", whatsapp: "31988112233", qtdLojas: 3, cidade: "Belo Horizonte", estado: "MG", etapa: 5, decisor: "Sérgio Mendes", influenciadores: "", comentarios: "Cliente ativo. Projeto de eficiência operacional iniciado." }
+      { id: 5, empresa: "Atacadão das Frutas", nome: "Sérgio Mendes", cargo: "Proprietário", whatsapp: "31988112233", qtdLojas: 3, cidade: "Belo Horizonte", estado: "MG", etapa: 5, decisor: "Sérgio Mendes", influenciadores: "", comentarios: "Cliente ativo. Projeto de eficiência operacional iniciado." },
+      { id: 6, empresa: "Comercial de Alimentos Santos", nome: "José Santos", cargo: "Gerente", whatsapp: "11966554433", qtdLojas: 2, cidade: "Santos", estado: "SP", etapa: 6, decisor: "", influenciadores: "", comentarios: "Sem orçamento disponível neste trimestre." }
     ];
 
     // Renderiza os Cards no Kanban
     function renderizarKanban(dados = leads) {
-      // Limpa as colunas
-      for (let i = 1; i <= 5; i++) {
+      for (let i = 1; i <= 6; i++) {
         document.getElementById(`coluna-${i}`).innerHTML = '';
         document.getElementById(`count-${i}`).innerText = '0';
       }
 
-      const contadores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+      const contadores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
 
       dados.forEach(lead => {
         contadores[lead.etapa]++;
         const coluna = document.getElementById(`coluna-${lead.etapa}`);
 
         const card = document.createElement('div');
-        card.className = "bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-3.5 shadow-md cursor-pointer transition-all hover:border-slate-500 group";
+        const isArquivado = lead.etapa === 6;
+        
+        card.className = `${isArquivado ? 'bg-slate-900/60 border-slate-800 text-slate-400' : 'bg-slate-800/80 border-slate-700/60 text-white'} hover:bg-slate-800 border rounded-xl p-3.5 shadow-md cursor-pointer transition-all hover:border-slate-500 group`;
         card.onclick = () => abrirModalEdicao(lead.id);
 
         card.innerHTML = `
           <div class="flex items-start justify-between gap-2 mb-1.5">
-            <h4 class="font-bold text-sm text-white group-hover:text-amber-400 transition-colors leading-snug">${lead.empresa}</h4>
-            ${lead.qtdLojas ? `<span class="text-[10px] font-semibold px-2 py-0.5 bg-slate-900 text-slate-300 rounded-md shrink-0 border border-slate-700">${lead.qtdLojas} lojas</span>` : ''}
+            <h4 class="font-bold text-sm ${isArquivado ? 'text-slate-400 line-through' : 'text-white'} group-hover:text-amber-400 transition-colors leading-snug">${lead.empresa}</h4>
+            ${lead.qtdLojas ? `<span class="text-[10px] font-semibold px-2 py-0.5 bg-slate-950 text-slate-400 rounded-md shrink-0 border border-slate-800">${lead.qtdLojas} lojas</span>` : ''}
           </div>
-          <p class="text-xs text-slate-300 font-medium mb-2">${lead.nome} <span class="text-slate-500">(${lead.cargo || 'N/I'})</span></p>
+          <p class="text-xs text-slate-400 font-medium mb-2">${lead.nome} <span class="text-slate-500">(${lead.cargo || 'N/I'})</span></p>
 
           ${lead.decisor ? `
-            <div class="text-[11px] text-amber-300/90 bg-amber-500/10 border border-amber-500/20 rounded-md p-1.5 mb-2 flex items-center gap-1">
+            <div class="text-[11px] text-amber-300/80 bg-amber-500/10 border border-amber-500/20 rounded-md p-1.5 mb-2 flex items-center gap-1">
               <i data-lucide="user-check" class="w-3 h-3 shrink-0"></i>
               <span class="truncate">Decisor: ${lead.decisor}</span>
             </div>
@@ -267,15 +287,13 @@
         coluna.appendChild(card);
       });
 
-      // Atualiza os contadores no topo das colunas
-      for (let i = 1; i <= 5; i++) {
+      for (let i = 1; i <= 6; i++) {
         document.getElementById(`count-${i}`).innerText = contadores[i];
       }
 
       lucide.createIcons();
     }
 
-    // Filtragem em Tempo Real (Pesquisa)
     function filtrarLeads() {
       const termo = document.getElementById('searchInput').value.toLowerCase();
       const filtrados = leads.filter(l => 
@@ -286,12 +304,12 @@
       renderizarKanban(filtrados);
     }
 
-    // Modal Control
     function abrirModalNovoLead() {
       document.getElementById('leadForm').reset();
       document.getElementById('leadId').value = '';
       document.getElementById('modalTitulo').innerText = "Cadastrar Novo Lead";
       document.getElementById('btnExcluir').classList.add('hidden');
+      document.getElementById('btnArquivar').classList.add('hidden');
       document.getElementById('leadModal').classList.remove('hidden');
     }
 
@@ -314,6 +332,7 @@
 
       document.getElementById('modalTitulo').innerText = `Gerenciar Lead — ${lead.empresa}`;
       document.getElementById('btnExcluir').classList.remove('hidden');
+      document.getElementById('btnArquivar').classList.remove('hidden');
       document.getElementById('leadModal').classList.remove('hidden');
     }
 
@@ -351,16 +370,25 @@
       renderizarKanban();
     }
 
-    function excluirLead() {
+    function arquivarLeadRapido() {
       const id = parseInt(document.getElementById('leadId').value);
-      if (confirm("Tem certeza que deseja excluir este lead do funil?")) {
+      const lead = leads.find(l => l.id === id);
+      if (lead) {
+        lead.etapa = 6;
+        fecharModal();
+        renderizarKanban();
+      }
+    }
+
+    function excluirLeadPermanente() {
+      const id = parseInt(document.getElementById('leadId').value);
+      if (confirm("Tem certeza que deseja excluir permanentemente este registro?")) {
         leads = leads.filter(l => l.id !== id);
         fecharModal();
         renderizarKanban();
       }
     }
 
-    // Inicialização
     renderizarKanban();
   </script>
 </body>
