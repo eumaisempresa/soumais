@@ -510,7 +510,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT DE INTEGRAÇÃO CORRIGIDO -->
+    <!-- SCRIPT DE INTEGRAÇÃO ATUALIZADO -->
     <script>
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyaiIyHqxnkiVTnItszjbw6sqJtCP9mK-BiKucQ4fm9lsAGcT0o_DwYLcW_CYze-Xzqag/exec';
 
@@ -593,18 +593,24 @@
             const checkboxes = document.querySelectorAll('input[name="dor"]:checked');
             let doresLista = [];
             checkboxes.forEach((cb) => {
-                doresLista.push("• " + cb.value);
+                doresLista.push(cb.value);
             });
 
-            let doresTexto = doresLista.length > 0 
-                ? doresLista.join("\n") 
+            let doresTextoFormatado = doresLista.length > 0 
+                ? doresLista.map(d => "• " + d).join("\n") 
                 : "• Nenhuma opção marcada nas etapas de seleção.";
 
             let obsTexto = obs.trim() !== "" ? obs : "Nenhuma observação adicional fornecida.";
 
+            const agora = new Date();
+            const dataHoraFormatada = agora.toLocaleString('pt-BR');
+
             const idLead = Date.now();
+            
+            // Objeto do Lead agora inclui Data/Hora, Dores Selecionadas e Observações
             const leadObj = {
                 id: idLead,
+                dataHora: dataHoraFormatada,
                 empresa: empresa,
                 nome: nome,
                 whatsapp: whatsapp,
@@ -612,12 +618,14 @@
                 qtdLojas: lojas,
                 cidade: cidade,
                 estado: estado,
+                dores: doresLista.join(", "),
+                observa_coes: obsTexto,
                 etapa: 1,
                 decisor: "",
                 influenciadores: ""
             };
 
-            const notaHistorico = `📥 LEAD CAPTADO VIA SITE\n\nDores Selecionadas:\n${doresTexto}\n\nObservações:\n${obsTexto}`;
+            const notaHistorico = `📥 LEAD CAPTADO VIA SITE (${dataHoraFormatada})\n\nDores Selecionadas:\n${doresTextoFormatado}\n\nObservações:\n${obsTexto}`;
 
             salvarNaPlanilha(leadObj, notaHistorico);
 
@@ -630,7 +638,7 @@
                 `• Cidade/UF: ${cidade}/${estado}\n` +
                 `• WhatsApp: ${whatsapp}\n\n` +
                 `*DIAGNÓSTICO DE DORES IDENTIFICADAS*\n` +
-                `${doresTexto}\n\n` +
+                `${doresTextoFormatado}\n\n` +
                 `*OBSERVAÇÕES ADICIONAIS*\n` +
                 `${obsTexto}\n\n` +
                 `Aguardo o retorno do consultor Wilson Gama para tratarmos dessas soluções.`;
