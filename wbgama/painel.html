@@ -15,6 +15,37 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
 
+  <!-- TELA DE LOGIN / AUTENTICAÇÃO -->
+  <div id="loginOverlay" class="fixed inset-0 bg-slate-950 z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-5">
+      <div class="text-center space-y-1">
+        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 font-bold text-xl flex items-center justify-center mx-auto mb-2">
+          WB
+        </div>
+        <h2 class="text-xl font-bold text-white">Acesso ao Painel Sou+</h2>
+        <p class="text-xs text-slate-400">Informe seu e-mail e senha para continuar</p>
+      </div>
+
+      <form onsubmit="autenticar(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">E-mail de Acesso</label>
+          <input type="email" id="loginEmail" required placeholder="seu@email.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">Senha</label>
+          <input type="password" id="loginSenha" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none">
+        </div>
+
+        <p id="loginError" class="text-xs text-red-400 hidden text-center"></p>
+
+        <button type="submit" id="btnLogin" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2.5 rounded-xl text-sm transition-colors shadow-lg shadow-amber-500/10">
+          Entrar no Painel
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- HEADER -->
   <header class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 sticky top-0 z-20">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-lg">
@@ -22,16 +53,20 @@
       </div>
       <div>
         <h1 class="text-lg font-bold text-white leading-tight">WB Gama — Funil de Gestão</h1>
-        <p class="text-xs text-slate-400">Gerenciamento Executivo de Leads e Clientes</p>
+        <p class="text-xs text-slate-400" id="subtituloUsuario">Gerenciamento Executivo de Leads e Clientes</p>
       </div>
     </div>
 
     <div class="flex items-center gap-3 w-full md:w-auto">
-      <div class="relative flex-1 md:w-72">
+      <div class="relative flex-1 md:w-64">
         <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
         <input type="text" id="searchInput" oninput="filtrarLeads()" placeholder="Buscar empresa, nome ou cidade..." 
                class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-colors">
       </div>
+      <button onclick="abrirModalSenha()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold px-3 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all border border-slate-700 shrink-0">
+        <i data-lucide="key-round" class="w-3.5 h-3.5"></i>
+        <span>Alterar Senha</span>
+      </button>
       <button onclick="abrirModalNovoLead()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm flex items-center gap-2 transition-all shadow-lg shadow-amber-500/10 shrink-0">
         <i data-lucide="plus" class="w-4 h-4"></i>
         <span>Novo Lead</span>
@@ -39,6 +74,7 @@
     </div>
   </header>
 
+  <!-- COLUNAS KANBAN -->
   <main class="flex-1 p-6 overflow-x-auto">
     <div class="grid grid-cols-1 md:grid-cols-6 gap-4 min-w-[1450px] h-[calc(100vh-120px)]">
       <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col h-full overflow-hidden">
@@ -91,7 +127,45 @@
     </div>
   </main>
 
-  <!-- Modal Lead & Histórico -->
+  <!-- MODAL ALTERAÇÃO DE SENHA -->
+  <div id="senhaModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 id="modalSenhaTitulo" class="text-base font-bold text-white">Alterar Senha</h3>
+        <button onclick="fecharModalSenha()" id="btnFecharSenha" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <p id="avisoPrimeiroAcesso" class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl hidden">
+        Por questões de segurança, é necessário alterar sua senha no primeiro acesso.
+      </p>
+
+      <form onsubmit="salvarNovaSenha(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">Senha Atual (Temporária)</label>
+          <input type="password" id="senhaAtual" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">Nova Senha</label>
+          <input type="password" id="novaSenha" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">Confirmar Nova Senha</label>
+          <input type="password" id="confirmarNovaSenha" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none">
+        </div>
+
+        <p id="senhaError" class="text-xs text-red-400 hidden text-center"></p>
+
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+          <button type="button" onclick="fecharModalSenha()" id="btnCancelarSenha" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-medium">Cancelar</button>
+          <button type="submit" id="btnSalvarSenha" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs">Salvar Senha</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL LEAD & HISTÓRICO -->
   <div id="leadModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl p-6">
       
@@ -104,6 +178,7 @@
 
       <form id="leadForm" onsubmit="salvarLead(event)" class="space-y-4">
         <input type="hidden" id="leadId">
+        <input type="hidden" id="dataHoraLead">
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -153,6 +228,18 @@
           </div>
         </div>
 
+        <!-- Mapeamento de Dores e Observações (Pontos 1 e 2) -->
+        <div class="border-t border-slate-800 pt-4 mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">Dores Selecionadas (Site)</label>
+            <textarea id="dores" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:border-amber-500 focus:outline-none"></textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">Observações Adicionais (Site)</label>
+            <textarea id="observa_coes" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:border-amber-500 focus:outline-none"></textarea>
+          </div>
+        </div>
+
         <div class="border-t border-slate-800 pt-4 mt-2">
           <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-3">Mapeamento de Apoiadores & Decisão</h4>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -167,7 +254,7 @@
           </div>
         </div>
 
-        <!-- Seção do Histórico (Item 3) -->
+        <!-- Seção do Histórico (Pontos 3 e 5) -->
         <div class="border-t border-slate-800 pt-4">
           <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Registrar Nova Observação/Atividade</h4>
           <textarea id="novaNota" rows="2" placeholder="Digite uma nova atualização sobre este cliente..." 
@@ -181,7 +268,7 @@
 
         <div class="flex items-center justify-between border-t border-slate-800 pt-4 mt-4">
           <button type="button" onclick="excluirLeadPermanente()" id="btnExcluir" class="text-red-400 hover:text-red-300 text-xs font-medium flex items-center gap-1">
-            <i data-lucide="trash-2" class="w-4 h-4"></i> Excluir
+            <i data-lucide="trash-2" class="w-4 h-4"></i> Excluir Lead
           </button>
           <div class="flex items-center gap-2">
             <button type="button" onclick="fecharModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm font-medium">Cancelar</button>
@@ -193,13 +280,133 @@
   </div>
 
   <script>
-    // URL DO SEU APPS SCRIPT PUBLICADO
     const API_URL = "https://script.google.com/macros/s/AKfycbyaiIyHqxnkiVTnItszjbw6sqJtCP9mK-BiKucQ4fm9lsAGcT0o_DwYLcW_CYze-Xzqag/exec"; 
 
     let leads = [];
+    let usuarioLogado = null;
+    let etapaOriginalModal = null;
 
+    const ETAPAS_NOMES = {
+      1: "1. Entrada",
+      2: "2. Qualificação",
+      3: "3. Diagnóstico",
+      4: "4. Proposta",
+      5: "5. Cliente Ativo",
+      6: "6. Arquivado"
+    };
+
+    // --- AUTENTICAÇÃO ---
+    async function autenticar(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const senha = document.getElementById('loginSenha').value;
+      const btn = document.getElementById('btnLogin');
+      const errBox = document.getElementById('loginError');
+
+      btn.innerText = "Verificando...";
+      errBox.classList.add('hidden');
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          body: JSON.stringify({ action: "login", email: email, senha: senha })
+        });
+        const res = await response.json();
+
+        if (res.status === "success") {
+          usuarioLogado = res.usuario;
+          document.getElementById('loginOverlay').classList.add('hidden');
+          document.getElementById('subtituloUsuario').innerText = `Usuário: ${usuarioLogado.nome} (${usuarioLogado.empresa})`;
+
+          if (res.primeiroAcesso) {
+            abrirModalSenha(true);
+          } else {
+            carregarLeadsDaPlanilha();
+          }
+        } else {
+          errBox.innerText = res.message || "E-mail ou senha inválidos.";
+          errBox.classList.remove('hidden');
+        }
+      } catch(err) {
+        errBox.innerText = "Erro ao conectar com o servidor.";
+        errBox.classList.remove('hidden');
+      } finally {
+        btn.innerText = "Entrar no Painel";
+      }
+    }
+
+    // --- ALTERAÇÃO DE SENHA ---
+    function abrirModalSenha(isPrimeiroAcesso = false) {
+      document.getElementById('senhaAtual').value = '';
+      document.getElementById('novaSenha').value = '';
+      document.getElementById('confirmarNovaSenha').value = '';
+      document.getElementById('senhaError').classList.add('hidden');
+
+      if (isPrimeiroAcesso) {
+        document.getElementById('avisoPrimeiroAcesso').classList.remove('hidden');
+        document.getElementById('btnFecharSenha').classList.add('hidden');
+        document.getElementById('btnCancelarSenha').classList.add('hidden');
+      } else {
+        document.getElementById('avisoPrimeiroAcesso').classList.add('hidden');
+        document.getElementById('btnFecharSenha').classList.remove('hidden');
+        document.getElementById('btnCancelarSenha').classList.remove('hidden');
+      }
+
+      document.getElementById('senhaModal').classList.remove('hidden');
+    }
+
+    function fecharModalSenha() {
+      document.getElementById('senhaModal').classList.add('hidden');
+    }
+
+    async function salvarNovaSenha(e) {
+      e.preventDefault();
+      const senhaAtual = document.getElementById('senhaAtual').value;
+      const novaSenha = document.getElementById('novaSenha').value;
+      const confirmarNovaSenha = document.getElementById('confirmarNovaSenha').value;
+      const errBox = document.getElementById('senhaError');
+      const btn = document.getElementById('btnSalvarSenha');
+
+      errBox.classList.add('hidden');
+
+      if (novaSenha !== confirmarNovaSenha) {
+        errBox.innerText = "A nova senha e a confirmação não coincidem.";
+        errBox.classList.remove('hidden');
+        return;
+      }
+
+      btn.innerText = "Salvando...";
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          body: JSON.stringify({ 
+            action: "alterarSenha", 
+            email: usuarioLogado.email, 
+            senhaAtual: senhaAtual, 
+            novaSenha: novaSenha 
+          })
+        });
+        const res = await response.json();
+
+        if (res.status === "success") {
+          alert("Senha alterada com sucesso!");
+          fecharModalSenha();
+          carregarLeadsDaPlanilha();
+        } else {
+          errBox.innerText = res.message || "Erro ao alterar senha.";
+          errBox.classList.remove('hidden');
+        }
+      } catch(err) {
+        errBox.innerText = "Erro ao conectar com o servidor.";
+        errBox.classList.remove('hidden');
+      } finally {
+        btn.innerText = "Salvar Senha";
+      }
+    }
+
+    // --- LEADS E KANBAN ---
     async function carregarLeadsDaPlanilha() {
-      if(API_URL.includes("COLE_AQUI")) return;
       try {
         const response = await fetch(API_URL, {
           method: "POST",
@@ -260,10 +467,12 @@
       const lead = leads.find(l => l.id == id);
       if (!lead) return;
 
+      etapaOriginalModal = parseInt(lead.etapa) || 1;
+
       document.getElementById('leadId').value = lead.id;
-      document.getElementById('empresa').value = lead.empresa;
-      document.getElementById('nome').value = lead.nome;
-      document.getElementById('whatsapp').value = lead.whatsapp;
+      document.getElementById('empresa').value = lead.empresa || '';
+      document.getElementById('nome').value = lead.nome || '';
+      document.getElementById('whatsapp').value = lead.whatsapp || '';
       document.getElementById('cargo').value = lead.cargo || '';
       document.getElementById('qtdLojas').value = lead.qtdLojas || '';
       document.getElementById('cidade').value = lead.cidade || '';
@@ -271,13 +480,18 @@
       document.getElementById('etapa').value = lead.etapa;
       document.getElementById('decisor').value = lead.decisor || '';
       document.getElementById('influenciadores').value = lead.influenciadores || '';
+      
+      // Pontos 1 e 2: Mapeamento de dores e observações para não perder no save
+      document.getElementById('dataHoraLead').value = lead['Data/Hora'] || lead.dataHora || new Date().toLocaleString("pt-BR");
+      document.getElementById('dores').value = lead['Dores Selecionadas'] || lead.dores || '';
+      document.getElementById('observa_coes').value = lead['Observações Adicionais'] || lead.observa_coes || '';
+      
       document.getElementById('novaNota').value = '';
 
       document.getElementById('modalTitulo').innerText = `Gerenciar Lead — ${lead.empresa}`;
       document.getElementById('btnExcluir').classList.remove('hidden');
       document.getElementById('leadModal').classList.remove('hidden');
 
-      // Busca Histórico
       carregarHistoricoDoLead(lead.id);
     }
 
@@ -313,6 +527,23 @@
       btn.innerText = "Salvando...";
 
       const id = document.getElementById('leadId').value;
+      const novaEtapa = parseInt(document.getElementById('etapa').value);
+      const textoNota = document.getElementById('novaNota').value.trim();
+
+      let notasHistoricoFormatada = [];
+
+      // Ponto 5: Se mudou a etapa, grava alteração no histórico
+      if (etapaOriginalModal && etapaOriginalModal !== novaEtapa) {
+        const de = ETAPAS_NOMES[etapaOriginalModal] || etapaOriginalModal;
+        const para = ETAPAS_NOMES[novaEtapa] || novaEtapa;
+        notasHistoricoFormatada.push(`🔄 Etapa alterada: ${de} ➔ ${para}`);
+      }
+
+      // Ponto 3: Se digitou nota no textarea, inclui no histórico
+      if (textoNota !== "") {
+        notasHistoricoFormatada.push(`📝 Observação: ${textoNota}`);
+      }
+
       const leadData = {
         id: id ? parseInt(id) : Date.now(),
         empresa: document.getElementById('empresa').value,
@@ -322,16 +553,21 @@
         qtdLojas: document.getElementById('qtdLojas').value,
         cidade: document.getElementById('cidade').value,
         estado: document.getElementById('estado').value.toUpperCase(),
-        etapa: parseInt(document.getElementById('etapa').value),
+        etapa: novaEtapa,
         decisor: document.getElementById('decisor').value,
-        influenciadores: document.getElementById('influenciadores').value
+        influenciadores: document.getElementById('influenciadores').value,
+        dataHora: document.getElementById('dataHoraLead').value,
+        dores: document.getElementById('dores').value,
+        observa_coes: document.getElementById('observa_coes').value
       };
-
-      const nota = document.getElementById('novaNota').value;
 
       await fetch(API_URL, {
         method: "POST",
-        body: JSON.stringify({ action: "salvarLead", lead: leadData, historicoNota: nota })
+        body: JSON.stringify({ 
+          action: "salvarLead", 
+          lead: leadData, 
+          historicoNota: notasHistoricoFormatada.join(" | ") 
+        })
       });
 
       btn.innerText = "Salvar Alterações";
@@ -339,9 +575,25 @@
       carregarLeadsDaPlanilha();
     }
 
+    async function excluirLeadPermanente() {
+      const id = document.getElementById('leadId').value;
+      if (!id || !confirm("Tem certeza que deseja excluir este lead permanentemente?")) return;
+
+      await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "excluirLead", id: parseInt(id) })
+      });
+
+      fecharModal();
+      carregarLeadsDaPlanilha();
+    }
+
     function abrirModalNovoLead() {
       document.getElementById('leadForm').reset();
       document.getElementById('leadId').value = '';
+      document.getElementById('dataHoraLead').value = new Date().toLocaleString("pt-BR");
+      etapaOriginalModal = null;
+
       document.getElementById('historicoContainer').innerHTML = '<span class="text-slate-500 italic">O histórico estará disponível após salvar.</span>';
       document.getElementById('modalTitulo').innerText = "Cadastrar Novo Lead";
       document.getElementById('btnExcluir').classList.add('hidden');
@@ -352,7 +604,15 @@
       document.getElementById('leadModal').classList.add('hidden');
     }
 
-    carregarLeadsDaPlanilha();
+    function filtrarLeads() {
+      const termo = document.getElementById('searchInput').value.toLowerCase();
+      const filtrados = leads.filter(l => 
+        (l.empresa && l.empresa.toLowerCase().includes(termo)) ||
+        (l.nome && l.nome.toLowerCase().includes(termo)) ||
+        (l.cidade && l.cidade.toLowerCase().includes(termo))
+      );
+      renderizarKanban(filtrados);
+    }
   </script>
 </body>
 </html>
