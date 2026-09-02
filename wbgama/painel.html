@@ -20,9 +20,9 @@
   <div id="loginOverlay" class="fixed inset-0 bg-slate-950 z-50 flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-5">
       <div class="text-center space-y-1">
-        <!-- LOGO EU+ NO LOGIN -->
-        <div class="w-16 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 font-brand font-bold text-2xl flex items-center justify-center mx-auto mb-2 tracking-tight">
-          EU<span class="text-amber-500 text-lg ml-0.5 font-sans font-extrabold">+</span>
+        <!-- LOGO EU+ NO LOGIN CORRIGIDO -->
+        <div class="w-16 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 font-brand font-bold text-2xl flex items-center justify-center mx-auto mb-2 tracking-normal">
+          EU<span class="text-amber-500 text-lg font-sans font-extrabold relative -top-1 ml-0.5">+</span>
         </div>
         <h2 class="text-xl font-bold text-white">Acesso ao Painel Sou+</h2>
         <p class="text-xs text-slate-400">Informe seu e-mail e senha para continuar</p>
@@ -50,9 +50,9 @@
   <!-- HEADER -->
   <header class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 sticky top-0 z-20">
     <div class="flex items-center gap-3">
-      <!-- LOGO EU+ NO HEADER -->
-      <div class="w-12 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 font-brand font-bold text-xl tracking-tight shrink-0">
-        EU<span class="text-amber-500 text-base ml-0.5 font-sans font-extrabold">+</span>
+      <!-- LOGO EU+ NO HEADER CORRIGIDO -->
+      <div class="w-12 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 font-brand font-bold text-xl tracking-normal shrink-0">
+        EU<span class="text-amber-500 text-base font-sans font-extrabold relative -top-0.5 ml-0.5">+</span>
       </div>
       <div>
         <h1 class="text-lg font-bold text-white leading-tight">EU+ Executivo — Funil de Gestão</h1>
@@ -197,7 +197,12 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">WhatsApp</label>
-            <input type="text" id="whatsapp" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none">
+            <div class="flex items-center gap-2">
+              <input type="text" id="whatsapp" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-amber-500 focus:outline-none">
+              <button type="button" onclick="abrirWhatsappModal()" title="Abrir conversa no WhatsApp" class="p-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-xl transition-colors shrink-0 flex items-center justify-center">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+              </button>
+            </div>
           </div>
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Cargo</label>
@@ -499,6 +504,15 @@
       document.getElementById('leadModal').classList.remove('hidden');
 
       carregarHistoricoDoLead(lead.id);
+    }
+
+    function abrirWhatsappModal() {
+      const num = document.getElementById('whatsapp').value.replace(/\D/g, '');
+      if (num) {
+        window.open(`https://wa.me/55${num}`, '_blank');
+      } else {
+        alert('Informe um número de WhatsApp válido.');
+      }
     }
 
     async function carregarHistoricoDoLead(idLead) {
