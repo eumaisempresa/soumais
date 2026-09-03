@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sou⁺ — Ecossistema EU⁺</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-principal: #060E18;
+            --bg-secundario: #0A1624;
+            --bg-terciario: #0E1E30;
+            --dourado-principal: #C4974A;
+            --dourado-secundario: #D4AA62;
+            --texto-principal: #EEF0F2;
+            --texto-secundario: #7A8FA3;
+            --borda-dourada: rgba(196, 151, 74, 0.18);
+            --font-title: 'Cormorant Garamond', serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        sup {
+            font-family: var(--font-title);
+            font-weight: 600;
+            color: var(--dourado-principal);
+            font-size: 0.42em;
+            vertical-align: super;
+            margin-left: 1px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+        }
+
+        /* Tipografia */
+        h1, h2, h3, .display {
+            font-family: var(--font-title);
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--texto-principal);
+        }
+
+        .display { font-size: 48px; font-weight: 300; }
+        h1 { font-size: 36px; font-weight: 600; }
+        h2 { font-size: 28px; }
+        h3 { font-family: var(--font-body); font-size: 21px; font-weight: 500; }
+
+        .text-gold { color: var(--dourado-principal); }
+        .text-muted { color: var(--texto-secundario); }
+
+        /* Botões conforme manual 1.7.5.6 */
+        .btn-primary {
+            display: inline-block;
+            border: 1px solid var(--dourado-principal);
+            background: transparent;
+            color: var(--dourado-principal);
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--dourado-principal);
+            color: var(--bg-principal);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            border: 1px solid var(--texto-secundario);
+            background: transparent;
+            color: var(--texto-secundario);
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--texto-secundario);
+            color: var(--bg-principal);
+        }
+
+        /* Topo */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--borda-dourada);
+            background-color: var(--bg-secundario);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-breadcrumb {
+            font-size: 12px;
+            color: var(--texto-secundario);
+            letter-spacing: 0.5px;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-secundario) 0%, var(--bg-principal) 100%);
+            border-bottom: 1px solid var(--borda-dourada);
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 20px auto 30px;
+            color: var(--texto-secundario);
+        }
+
+        /* Módulos do Sistema */
+        .features {
+            padding: 80px 0;
+            background: var(--bg-principal);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-3 { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--bg-secundario);
+            border: 1px solid var(--borda-dourada);
+            border-radius: 4px;
+            padding: 30px;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Diagnóstico e Form (Fundo predominantemente claro no container de interação) */
+        .diag-section {
+            padding: 80px 0;
+            background: var(--bg-secundario);
+            border-top: 1px solid var(--borda-dourada);
+        }
+
+        .form-container {
+            background: #FFFFFF;
+            color: #1A1A1A;
+            border-radius: 6px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 40px auto 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .step-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #E0E0E0;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .step-title {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--dourado-principal);
+            text-transform: uppercase;
+        }
+
+        .step-percentage {
+            font-size: 12px;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .form-step { display: none; }
+        .form-step.active { display: block; }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #CCC;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            background: #F9F9F9;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid #E0E0E0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: #F4F4F4;
+        }
+
+        .checkbox-item input {
+            accent-color: var(--dourado-principal);
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-step-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn-step {
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            text-transform: uppercase;
+            border: none;
+        }
+
+        .btn-next {
+            background-color: var(--dourado-principal);
+            color: #FFF;
+        }
+
+        .btn-prev {
+            background-color: #E0E0E0;
+            color: #333;
+        }
+
+        .btn-whatsapp {
+            background-color: #054C35;
+            color: #FFF;
+            width: 100%;
+            padding: 14px;
+            font-weight: 500;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /* Slogan e Rodapé Institucional */
+        .slogan-section {
+            padding: 60px 0;
+            text-align: center;
+            background: var(--bg-terciario);
+            border-top: 1px solid var(--borda-dourada);
+        }
+
+        .slogan-text {
+            font-family: var(--font-title);
+            font-size: 24px;
+            font-style: italic;
+            color: var(--texto-principal);
+        }
+
+        footer {
+            background: var(--bg-principal);
+            padding: 40px 0;
+            border-top: 1px solid var(--borda-dourada);
+            font-size: 12px;
+            color: var(--texto-secundario);
+        }
+
+        .footer-hierarchy {
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--texto-secundario);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--dourado-principal);
+        }
+
+        .footer-copy {
+            text-align: center;
+            font-size: 11px;
+            color: #4A5A6A;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-content">
+            <div class="nav-breadcrumb">EU⁺ Executivo &gt; Sou⁺</div>
+            <div>
+                <a href="#diagnostico" class="btn-primary">Faça seu Diagnóstico</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1 class="display">Desenvolvimento e Ampliação de Potencial Humano</h1>
+            <p>O ecossistema completo para posicionar sua marca, captar clientes qualificados e gerenciar suas oportunidades com precisão executiva.</p>
+            <a href="#diagnostico" class="btn-primary">Iniciar Diagnóstico Gratuito</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 style="text-align: center;">Estrutura do Pacote Sou⁺</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Home Page Executiva</h3>
+                    <p class="text-muted" style="margin-top: 10px; font-size: 14px;">Página de alta conversão desenhada para passar autoridade imediata, com infraestrutura pronta e design responsivo.</p>
+                </div>
+                <div class="card">
+                    <h3>Cartão Virtual Premium</h3>
+                    <p class="text-muted" style="margin-top: 10px; font-size: 14px;">Hub de links inteligente para networking de alto nível, permitindo salvar contatos diretamente na agenda.</p>
+                </div>
+                <div class="card">
+                    <h3>Painel de Gestão (Kanban)</h3>
+                    <p class="text-muted" style="margin-top: 10px; font-size: 14px;">Gestão visual simples e eficiente para acompanhar leads da qualificação ao fechamento do contrato.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="diag-section" id="diagnostico">
+        <div class="container">
+            <h2 style="text-align: center;">Diagnóstico Empresarial</h2>
+            <p style="text-align: center; color: var(--texto-secundario); margin-top: 8px;">Preencha os pontos críticos de sua operação para análise de perfil.</p>
+
+            <div class="form-container">
+                <div class="step-progress">
+                    <span class="step-title" id="stepIndicatorTitle">Etapa 1 de 5: Dados do Cliente</span>
+                    <span class="step-percentage" id="stepIndicatorPercent">20%</span>
+                </div>
+
+                <form id="leadForm">
+                    <div class="form-step active" data-step="1" data-title="Etapa 1 de 5: Dados do Cliente" data-percent="20%">
+                        <h3>Informações de Contato</h3>
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label>1. Seu Nome</label>
+                            <input type="text" id="nome" class="form-control" placeholder="Nome do seu cliente" required>
+                        </div>
+                        <div class="form-group">
+                            <label>2. Cargo / Função</label>
+                            <input type="text" id="cargo" class="form-control" placeholder="Ex: Diretor de Operações" required>
+                        </div>
+                        <div class="form-group">
+                            <label>3. Nome da Empresa</label>
+                            <input type="text" id="empresa" class="form-control" placeholder="Nome da empresa" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 1;">
+                                <label>4. Qtd. de Lojas</label>
+                                <input type="number" id="lojas" class="form-control" placeholder="Ex: 5" required>
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>5. WhatsApp</label>
+                                <input type="tel" id="whatsapp" class="form-control" placeholder="(00) 00000-0000" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 2;">
+                                <label>6. Cidade</label>
+                                <input type="text" id="cidade" class="form-control" placeholder="Cidade" required>
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>7. Estado (UF)</label>
+                                <input type="text" id="uf" class="form-control" placeholder="UF" maxlength="2" required>
+                            </div>
+                        </div>
+                        <div class="btn-step-container">
+                            <div></div>
+                            <button type="button" class="btn-step btn-next" onclick="nextStep(1)">Confirmar e Continuar &rarr;</button>
+                        </div>
+                    </div>
+
+                    <div class="form-step" data-step="2" data-title="Etapa 2 de 5: Estoque & Perdas" data-percent="40%">
+                        <h3>1. Estoque & Perdas</h3>
+                        <p style="font-size: 13px; color: #666; margin-top: 5px;">Selecione todas as dificuldades que ocorrem na sua operação:</p>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Quebras operacionais e perdas elevadas nos perecíveis"> Quebras operacionais e perdas elevadas nos perecíveis</label>
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Ruptura constante de gôndola e perda de vendas"> Ruptura constante de gôndola e perda de vendas</label>
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Capital retido em estoque sem giro (DOH alto)"> Capital retido em estoque sem giro (DOH alto)</label>
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Divergências frequentes nos inventários"> Divergências frequentes nos inventários</label>
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Falta de controle no recebimento de mercadorias"> Falta de controle no recebimento de mercadorias</label>
+                        </div>
+                        <div class="btn-step-container">
+                            <button type="button" class="btn-step btn-prev" onclick="prevStep(2)">Voltar</button>
+                            <button type="button" class="btn-step btn-next" onclick="nextStep(2)">Confirmar e Avançar</button>
+                        </div>
+                    </div>
+
+                    <div class="form-step" data-step="3" data-title="Etapa 3 de 5: Comercial & Margem" data-percent="60%">
+                        <h3>2. Comercial & Margem</h3>
+                        <p style="font-size: 13px; color: #666; margin-top: 5px;">Selecione os pontos críticos do seu setor comercial:</p>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Margem bruta espremida e rentabilidade baixa"> Margem bruta espremida e rentabilidade baixa</label>
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Pouco poder de barganha com fornecedores"> Pouco poder de barganha com fornecedores</label>
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Prazos curtos para pagamento de compras"> Prazos curtos para pagamento de compras</label>
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Precificação sem inteligência estratégica"> Precificação sem inteligência estratégica</label>
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Mix de produtos inadequado para a região"> Mix de produtos inadequado para a região</label>
+                        </div>
+                        <div class="btn-step-container">
+                            <button type="button" class="btn-step btn-prev" onclick="prevStep(3)">Voltar</button>
+                            <button type="button" class="btn-step btn-next" onclick="nextStep(3)">Confirmar e Avançar</button>
+                        </div>
+                    </div>
+
+                    <div class="form-step" data-step="4" data-title="Etapa 4 de 5: Operações & Gestão" data-percent="80%">
+                        <h3>3. Operações & Gestão</h3>
+                        <p style="font-size: 13px; color: #666; margin-top: 5px;">Selecione os gargalos na gestão de loja e equipes:</p>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Falta de processos operacionais padronizados"> Falta de processos operacionais padronizados</label>
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="EBITDA e geração de caixa insuficientes"> EBITDA e geração de caixa insuficientes</label>
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Empresa excessivamente dependente do dono"> Empresa excessivamente dependente do dono</label>
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Ausência de relatórios e indicadores claros"> Ausência de relatórios e indicadores claros</label>
+                            <label class="checkbox-item"><input type="checkbox" name="dores" value="Dificuldade no planejamento de novas lojas"> Dificuldade no planejamento de novas lojas</label>
+                        </div>
+                        <div class="btn-step-container">
+                            <button type="button" class="btn-step btn-prev" onclick="prevStep(4)">Voltar</button>
+                            <button type="button" class="btn-step btn-next" onclick="nextStep(4)">Confirmar e Avançar</button>
+                        </div>
+                    </div>
+
+                    <div class="form-step" data-step="5" data-title="Etapa 5 de 5: Observações Finais" data-percent="100%">
+                        <h3>Observações Finais</h3>
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label>Se desejar falar mais alguma dificuldade, digite aqui:</label>
+                            <textarea id="observacoes" class="form-control" rows="4" placeholder="Preciso de apoio pois estou sobrecarregado..."></textarea>
+                        </div>
+                        <div style="background: #FFF9E6; border: 1px solid #FFE58F; padding: 12px; border-radius: 4px; font-size: 12px; color: #8C6B00; margin-bottom: 20px;">
+                            ⏱ Em breve nosso consultor estará retornando com a análise do seu perfil.
+                        </div>
+                        <div class="btn-step-container" style="flex-direction: column; gap: 10px;">
+                            <button type="submit" class="btn-whatsapp">Enviar pelo WhatsApp</button>
+                            <button type="button" class="btn-step btn-prev" onclick="prevStep(5)" style="width: 100%;">Voltar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="slogan-section">
+        <div class="container">
+            <p class="slogan-text">"Você é o EU. Nós somos o ⁺ que soma com você."</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-hierarchy">
+                <a href="http://www.institucional.eumaisempresa.com.br" style="color: inherit; text-decoration: none;">Ecossistema EU⁺</a> &gt; 
+                <a href="http://www.eumaisempresa.com.br" style="color: inherit; text-decoration: none;">EU⁺ Empresa</a> &gt; 
+                <a href="http://www.eumaisempresa.com.br" style="color: inherit; text-decoration: none;">EU⁺ Executivo</a> &gt; 
+                <a href="http://www.soumais.eumaisempresa.com.br" style="color: inherit; text-decoration: none;">Sou⁺</a>
+            </div>
+
+            <div class="footer-links">
+                <a href="http://www.institucional.eumaisempresa.com.br">Portal Institucional</a>
+                <a href="http://www.ails.eumaisempresa.com.br">Home AILs</a>
+                <a href="http://www.soumais.eumaisempresa.com.br">Home Sou⁺</a>
+                <a href="https://linkedin.com/company/eumaisempresa" target="_blank">LinkedIn</a>
+                <a href="https://instagram.com/eumaisempresa" target="_blank">Instagram</a>
+            </div>
+
+            <div class="footer-copy">
+                &copy; 2026 Ecossistema EU⁺. Todos os direitos reservados. | Contato: (27) 99813-1806
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function updateProgress(step) {
+            const stepEl = document.querySelector(`.form-step[data-step="${step}"]`);
+            const title = stepEl.getAttribute('data-title');
+            const percent = stepEl.getAttribute('data-percent');
+            
+            document.getElementById('stepIndicatorTitle').innerText = title;
+            document.getElementById('stepIndicatorPercent').innerText = percent;
+        }
+
+        function nextStep(currentStep) {
+            const currentEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+            const inputs = currentEl.querySelectorAll('input[required]');
+            let valid = true;
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    valid = false;
+                    input.style.borderColor = '#C44A4A';
+                } else {
+                    input.style.borderColor = '#CCC';
+                }
+            });
+
+            if (!valid) return;
+
+            currentEl.classList.remove('active');
+            const nextEl = document.querySelector(`.form-step[data-step="${currentStep + 1}"]`);
+            if (nextEl) {
+                nextEl.classList.add('active');
+                updateProgress(currentStep + 1);
+            }
+        }
+
+        function prevStep(currentStep) {
+            const currentEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+            currentEl.classList.remove('active');
+            const prevEl = document.querySelector(`.form-step[data-step="${currentStep - 1}"]`);
+            if (prevEl) {
+                prevEl.classList.add('active');
+                updateProgress(currentStep - 1);
+            }
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const cargo = document.getElementById('cargo').value;
+            const empresa = document.getElementById('empresa').value;
+            const lojas = document.getElementById('lojas').value;
+            const cidade = document.getElementById('cidade').value;
+            const uf = document.getElementById('uf').value;
+            const observacoes = document.getElementById('observacoes').value;
+
+            const doresSelecionadas = Array.from(document.querySelectorAll('input[name="dores"]:checked'))
+                .map(cb => '• ' + cb.value)
+                .join('\n');
+
+            let mensagem = `*NOVO DIAGNÓSTICO SOU⁺*\n\n`;
+            mensagem += `*Nome:* ${nome}\n`;
+            mensagem += `*Cargo:* ${cargo}\n`;
+            mensagem += `*Empresa:* ${empresa} (${lojas} lojas)\n`;
+            mensagem += `*Local:* ${cidade}/${uf}\n\n`;
+            mensagem += `*Dores e Gargalos Mapeados:*\n${doresSelecionadas || 'Nenhuma selecionada'}\n\n`;
+            if (observacoes) {
+                mensagem += `*Observações:* ${observacoes}\n`;
+            }
+
+            const phone = "5527998131806";
+            const encodedText = encodeURIComponent(mensagem);
+            window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
+        });
+    </script>
+</body>
+</html>
